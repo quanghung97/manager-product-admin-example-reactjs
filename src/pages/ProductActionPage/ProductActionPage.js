@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import callApi from './../../utils/apiCaller'
 import {Link} from 'react-router-dom'
+import { actAddProductRequest } from './../../actions/index'
+import {connect} from 'react-redux'
 
 class ProductActionPage extends Component {
 
@@ -48,6 +50,12 @@ class ProductActionPage extends Component {
 
     let {id, txtName, txtPrice, chkbStatus} = this.state
 
+    let product = {
+      id: id,
+      name: txtName,
+      price: txtPrice,
+      status: chkbStatus
+    }
     if(id) { //update
       callApi(`products/${id}`, 'PUT', {
         name: txtName,
@@ -57,16 +65,8 @@ class ProductActionPage extends Component {
         history.goBack()
       })
     } else {
-      callApi('products', 'POST', {
-        name: txtName,
-        price: txtPrice,
-        status: chkbStatus
-      }).then(res => {
-        history.goBack()
-        // history.push('/') same same router.push vuejs
-        // console.log(res)
-      })
-      // console.log(this.state)
+      this.props.onAddProduct(product)
+      history.goBack()
     }    
   }
 
@@ -113,4 +113,12 @@ class ProductActionPage extends Component {
   }
 }
 
-export default ProductActionPage
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddProduct: (product) => {
+      dispatch(actAddProductRequest(product))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ProductActionPage)
