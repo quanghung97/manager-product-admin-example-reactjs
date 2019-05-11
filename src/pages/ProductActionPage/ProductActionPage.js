@@ -14,6 +14,24 @@ class ProductActionPage extends Component {
     }
   }
 
+  componentDidMount() {
+    let {match} = this.props
+    if(match) {
+      let id = match.params.id
+      // console.log(id)
+      callApi(`products/${id}`, 'GET', null).then(res => {
+        // console.log(res.data)
+        let data = res.data
+        this.setState({
+          id: data.id,
+          txtName: data.name,
+          txtPrice: data.price,
+          chkbStatus: data.status
+        })
+      })
+    }
+  }
+
   onChange = (e) => {
     let target = e.target
     let name = target.name
@@ -70,7 +88,8 @@ class ProductActionPage extends Component {
                    className="form-check-input" 
                    name="chkbStatus" 
                    value={chkbStatus}
-                   onChange={this.onChange}/>
+                   onChange={this.onChange}
+                   checked={chkbStatus}/>
             <label className="form-check-label">Còn Hàng</label>
           </div>
           <Link to="/product-list" className="btn btn-danger mr-2">
