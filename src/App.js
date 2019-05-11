@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import './App.css'
 import Menu from './components/Menu/Menu'
-import ProductList from './components/ProductList/ProductList'
 import routes from './routes'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
@@ -11,7 +10,13 @@ class App extends Component {
     let result = null
     if (routes.length > 0) {
       result = routes.map((route, index) => {
-        return <Route key={index} path={route.path} exact={route.exact} component={route.main} />
+        return (
+          <Route key={index} 
+                 path={route.path} 
+                 exact={route.exact} 
+                 component={route.main} 
+          />
+        )
       })
     }
     return <Switch>{ result }</Switch>
@@ -23,11 +28,6 @@ class App extends Component {
         <div>
           <Menu />
           <div className="container">
-            {/* <button className="btn btn-info mb-2">
-              Thêm sản phẩm
-            </button>
-            <ProductList /> */}
-
             { this.showContentMenus(routes) }
           </div>
         </div>

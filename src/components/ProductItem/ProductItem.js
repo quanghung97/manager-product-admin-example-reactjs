@@ -2,13 +2,16 @@ import React, {Component} from 'react'
 
 class ProductList extends Component {
   render() {
+    let {product, index} = this.props
+    let statusName = product.status ? 'Còn Hàng' : 'Hết Hàng'
+    let statusClass = product.status ? 'warning' : 'default'
     return (
       <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td><span class="badge badge-warning">Còn Hàng</span></td>
+        <td>{index + 1}</td>
+        <td>{product.id}</td>
+        <td>{product.name}</td>
+        <td>{product.price}</td>
+        <td><span class={`badge badge-${statusClass}`}>{statusName}</span></td>
         <td>
           <button type="button" class="btn btn-success mr-2">Thêm</button>
           <button type="button" class="btn btn-danger">Sửa</button>
