@@ -5,9 +5,8 @@ import ProductItem from './../../components/ProductItem/ProductItem'
 class ProductListPage extends Component {
 
   showProducts(products) {
-    let result = null
     if (products.length > 0) {
-      result = products.map((product, index) => {
+      products.map((product, index) => {
         return (
           <ProductItem key={index}
                        product={product}
