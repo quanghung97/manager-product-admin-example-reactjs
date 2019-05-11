@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import callApi from './../../utils/apiCaller'
+import {Link} from 'react-router-dom'
 
 class ProductActionPage extends Component {
 
@@ -24,13 +25,18 @@ class ProductActionPage extends Component {
 
   onSave = (e) => {
     e.preventDefault()
+
+    let {history} = this.props
+
     let {txtName, txtPrice, chkbStatus} = this.state
     callApi('products', 'POST', {
       name: txtName,
       price: txtPrice,
       status: chkbStatus
     }).then(res => {
-      console.log(res)
+      history.goBack()
+      // history.push('/') same same router.push vuejs
+      // console.log(res)
     })
     // console.log(this.state)
   }
@@ -67,6 +73,9 @@ class ProductActionPage extends Component {
                    onChange={this.onChange}/>
             <label className="form-check-label">Còn Hàng</label>
           </div>
+          <Link to="/product-list" className="btn btn-danger mr-2">
+            Trở Lại
+          </Link>
           <button type="submit" className="btn btn-primary">Lưu lại</button>
         </form>      
       </div>

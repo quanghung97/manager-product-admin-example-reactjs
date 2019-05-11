@@ -30,11 +30,38 @@ class ProductListPage extends Component {
           <ProductItem key={index}
                        product={product}
                        index={index}
+                       onDelete={this.onDelete}
           />
         )
       })
     }
     return result
+  }
+
+  findIndex = (products, id) => {
+    let result = -1
+    products.forEach((product, index) => {
+      if(product.id === id) {
+        result = index
+      }
+    })
+    return result
+  }
+
+  onDelete = (id) => {
+    // console.log(id)
+    let {products} = this.state
+    callApi(`products/${id}`, 'DELETE', null).then(res => {
+      if(res.status === 200) {
+        let index = this.findIndex(products, id)
+        if (index !== -1) {
+          products.splice(index, 1)
+          this.setState({
+            products: products
+          })
+        }
+      }
+    })
   }
 
   render() {
