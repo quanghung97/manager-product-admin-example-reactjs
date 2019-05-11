@@ -3,6 +3,7 @@ import ProductList from './../../components/ProductList/ProductList'
 import ProductItem from './../../components/ProductItem/ProductItem'
 import { connect } from 'react-redux'
 import callApi from './../../utils/apiCaller'
+import { Link } from 'react-router-dom'
 
 class ProductListPage extends Component {
 
@@ -37,14 +38,14 @@ class ProductListPage extends Component {
   }
 
   render() {
-    // let  { products }  = this.state // products API
-    let  { products }  = this.props // products state from redux
+    let  { products }  = this.state // products API
+    // let  { products }  = this.props // products state from redux
     // let products = []
     return (
         <div>
-          <button className="btn btn-info mb-2">
+          <Link to="/product/add" className="btn btn-info mb-2">
               Thêm sản phẩm
-          </button>
+          </Link>
           <ProductList>
             {this.showProducts(products)}
           </ProductList>
