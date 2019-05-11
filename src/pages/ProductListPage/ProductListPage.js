@@ -2,7 +2,24 @@ import React, {Component} from 'react'
 import ProductList from './../../components/ProductList/ProductList'
 import ProductItem from './../../components/ProductItem/ProductItem'
 import { connect } from 'react-redux'
+import callApi from './../../utils/apiCaller'
+
 class ProductListPage extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      products: []
+    }
+  }
+
+  componentDidMount() {
+    callApi('products', 'GET', null).then(res => {
+      this.setState({
+        products: res.data
+      })
+    })
+  }
 
   showProducts(products) {
     let result = null
@@ -20,7 +37,8 @@ class ProductListPage extends Component {
   }
 
   render() {
-    let  { products }  = this.props
+    let  { products }  = this.state
+    // let products = []
     return (
         <div>
           <button className="btn btn-info mb-2">
