@@ -4,7 +4,7 @@ import ProductItem from './../../components/ProductItem/ProductItem'
 import { connect } from 'react-redux'
 import callApi from './../../utils/apiCaller'
 import { Link } from 'react-router-dom'
-import { actFetchProducts } from './../../actions/index'
+import { actFetchProductsRequest } from './../../actions/index'
 
 class ProductListPage extends Component {
 
@@ -16,9 +16,7 @@ class ProductListPage extends Component {
   }
 
   componentDidMount() {
-    callApi('products', 'GET', null).then(res => {
-      this.props.fetchAllProducts(res.data)
-    })
+    this.props.fetchAllProducts()
   }
 
   showProducts(products) {
@@ -88,8 +86,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchAllProducts: (products) => {
-      dispatch(actFetchProducts(products))
+    fetchAllProducts: () => {
+      dispatch(actFetchProductsRequest())
     }
   }
 }
