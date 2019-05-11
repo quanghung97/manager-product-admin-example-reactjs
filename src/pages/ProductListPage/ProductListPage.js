@@ -37,7 +37,8 @@ class ProductListPage extends Component {
   }
 
   render() {
-    let  { products }  = this.state
+    // let  { products }  = this.state // products API
+    let  { products }  = this.props // products state from redux
     // let products = []
     return (
         <div>
