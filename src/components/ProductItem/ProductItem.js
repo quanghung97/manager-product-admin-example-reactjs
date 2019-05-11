@@ -11,10 +11,10 @@ class ProductList extends Component {
         <td>{product.id}</td>
         <td>{product.name}</td>
         <td>{product.price}</td>
-        <td><span class={`badge badge-${statusClass}`}>{statusName}</span></td>
+        <td><span className={`badge badge-${statusClass}`}>{statusName}</span></td>
         <td>
-          <button type="button" class="btn btn-success mr-2">Thêm</button>
-          <button type="button" class="btn btn-danger">Sửa</button>
+          <button type="button" className="btn btn-success mr-2">Thêm</button>
+          <button type="button" className="btn btn-danger">Sửa</button>
         </td>
       </tr>
     )
