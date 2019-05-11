@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import callApi from './../../utils/apiCaller'
 import {Link} from 'react-router-dom'
-import { actAddProductRequest, actGetProductRequest } from './../../actions/index'
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index'
 import {connect} from 'react-redux'
 
 class ProductActionPage extends Component {
@@ -30,6 +29,7 @@ class ProductActionPage extends Component {
       this.setState({
         id: itemEditing.id,
         txtName: itemEditing.name,
+        txtPrice: itemEditing.price,
         chkbStatus: itemEditing.status
       })
     }
@@ -58,17 +58,11 @@ class ProductActionPage extends Component {
       status: chkbStatus
     }
     if(id) { //update
-      callApi(`products/${id}`, 'PUT', {
-        name: txtName,
-        price: txtPrice,
-        status: chkbStatus
-      }).then(res => {
-        history.goBack()
-      })
+      this.props.onUpdateProduct(product)
     } else {
       this.props.onAddProduct(product)
-      history.goBack()
     }    
+    history.goBack()
   }
 
   render() {
@@ -127,6 +121,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onEditProduct: (id) => {
       dispatch(actGetProductRequest(id))
+    },
+    onUpdateProduct: (product) => {
+      dispatch(actUpdateProductRequest(product))
     }
   }
 }
