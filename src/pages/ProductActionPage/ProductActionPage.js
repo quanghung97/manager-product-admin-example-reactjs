@@ -46,17 +46,28 @@ class ProductActionPage extends Component {
 
     let {history} = this.props
 
-    let {txtName, txtPrice, chkbStatus} = this.state
-    callApi('products', 'POST', {
-      name: txtName,
-      price: txtPrice,
-      status: chkbStatus
-    }).then(res => {
-      history.goBack()
-      // history.push('/') same same router.push vuejs
-      // console.log(res)
-    })
-    // console.log(this.state)
+    let {id, txtName, txtPrice, chkbStatus} = this.state
+
+    if(id) { //update
+      callApi(`products/${id}`, 'PUT', {
+        name: txtName,
+        price: txtPrice,
+        status: chkbStatus
+      }).then(res => {
+        history.goBack()
+      })
+    } else {
+      callApi('products', 'POST', {
+        name: txtName,
+        price: txtPrice,
+        status: chkbStatus
+      }).then(res => {
+        history.goBack()
+        // history.push('/') same same router.push vuejs
+        // console.log(res)
+      })
+      // console.log(this.state)
+    }    
   }
 
   render() {
